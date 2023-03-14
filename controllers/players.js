@@ -53,14 +53,19 @@ export async function updatePlayer(req, res) {
 
 export async function togglePlayerActiveState(req, res) {
     try {
+        const { updatedBy } = req.body;
         const player = await Player.findById(req.params.id);
         if (player.active) {
             player.active = false;
+            player.updatedBy = updatedBy;
+            player.updatedAt = Date.now();
             await player.save();
             res.status(200).json({ message: "Player deactivated" });
         }
         else {
             player.active = true;
+            player.updatedBy = updatedBy;
+            player.updatedAt = Date.now();
             await player.save();
             res.status(200).json({ message: "Player activated" });
         }

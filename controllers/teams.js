@@ -55,14 +55,19 @@ export async function updateTeam(req, res) {
 
 export async function toggleTeamActiveState(req, res) {
     try {
+        const { updatedBy } = req.body;
         const team = await Team.findById(req.params.id);
         if (team.active) {
             team.active = false;
+            team.updatedAt = Date.now();
+            team.updatedBy = updatedBy;
             await team.save();
             res.json({ message: "Team has been deactivated" })
         }
         else {
             team.active = true;
+            team.updatedAt = Date.now();
+            team.updatedBy = updatedBy;
             await team.save()
             res.json({ message: "Team has been activated" })
         }
