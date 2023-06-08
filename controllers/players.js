@@ -74,3 +74,13 @@ export async function togglePlayerActiveState(req, res) {
         res.status(500).json({ message: err.message });
     }
 }
+
+export const getPlayersByTeam = async (req, res) => {
+    try {
+        const players = await Player.find({ team: req.params.id })
+        res.json(players)
+    }
+    catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+}

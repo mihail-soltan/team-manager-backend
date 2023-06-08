@@ -5,7 +5,8 @@ import {
     getOnePlayer,
     postPlayer,
     updatePlayer,
-    togglePlayerActiveState
+    togglePlayerActiveState,
+    getPlayersByTeam
 } from "../controllers/players.js";
 
 const playerRouter = Router();
@@ -13,6 +14,9 @@ const playerRouter = Router();
 playerRouter.route("/")
     .get(getPlayers)
     .post(postPlayer)
+
+playerRouter.route("/team/:id")
+    .get(getPlayersByTeam)
 
 playerRouter.route("/active")
     .get(getActivePlayers)
